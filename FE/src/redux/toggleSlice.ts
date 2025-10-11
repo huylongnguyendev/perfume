@@ -7,7 +7,7 @@ interface ToggleState {
 
 const initialState = {
     menuToggle: false,
-    searchToggle: false
+    searchToggle: false,
 } satisfies ToggleState as ToggleState
 
 const toggleSlice = createSlice({

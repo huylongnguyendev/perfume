@@ -22,7 +22,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className={cn("absolute max-md:w-11/12 top-0 -right-11/12 max-md:h-dvh max-md:shadow-md bg-background max-md:p-4 max-md:space-y-5 md:static transition-all duration-300", toggleMenu && "right-0")}>
+      <nav className={cn("absolute max-md:w-11/12 top-0 -right-11/12 max-md:h-dvh max-md:shadow-md bg-background max-md:p-4 max-md:space-y-5 md:static transition-all duration-300 z-50", toggleMenu && "right-0")}>
         <div className="w-full flex justify-end items-center">
           <Button
             variant="outline"
