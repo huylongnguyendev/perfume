@@ -9,10 +9,10 @@ const MenuAction = () => {
     return (
         <>
             <Button
-                variant="secondary"
+                variant="outline"
                 size="icon"
-                onClick={()=>dispatch(switchMenu())}
-                className="cursor-pointer rounded-full md:hidden"
+                onClick={() => dispatch(switchMenu())}
+                className="cursor-pointer rounded-full lg:hidden"
             >
                 <Menu />
             </Button>

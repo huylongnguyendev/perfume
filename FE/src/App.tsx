@@ -1,19 +1,14 @@
-import Header from './layouts/Header'
-import HomePage from './pages/HomePage'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
-import ProductPage from './pages/ProductPage'
+import User from './layouts/user-layout/User'
+
 
 const App = () => {
   return (
     <>
       <Router>
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/products" element={<ProductPage />} />
-          </Routes>
-        </main>
+        <Routes>
+          <Route path="/" element={<User />}></Route>
+        </Routes>
       </Router>
     </>
   )

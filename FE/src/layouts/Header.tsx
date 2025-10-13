@@ -1,24 +1,21 @@
-import Actions from '@/components/header/actions/Actions'
-import MenuAction from '@/components/header/actions/MenuAction'
-import SearchAction from '@/components/header/actions/SearchAction'
+import Actions from '@/components/header/Actions'
+import CartDrawser from '@/components/header/CartDrawser'
 import Logo from '@/components/header/Logo'
-import NavBar from '@/components/header/nav/NavBar'
+import MenuAction from '@/components/header/MenuAction'
+import NavBar from '@/components/header/NavBar'
 import SearchBar from '@/components/SearchBar'
 
 const Header = () => {
     return (
         <>
-            <header className="fixed top-0 left-0 w-full px-4 py-7 bg-background md:px-[50px] lg:px-[150px] shadow-md z-50">
-                <div className="w-full flex justify-between items-center">
-                    <div className="flex gap-1 md:hidden">
-                        <MenuAction />
-                        <SearchAction setStyle="max-md:inline-flex md:hidden" />
-                    </div>
-                    <Logo />
-                    <NavBar />
-                    <Actions />
-                    <SearchBar />
-                </div>
+            <header
+                className="font-OpenSans fixed px-4 md:px-16 lg:px-32 py-7 top-0 left-0 w-full z-40 shadow-md flex justify-between items-center">
+                <MenuAction />
+                <Logo />
+                <NavBar />
+                <Actions />
+                <SearchBar />
+                <CartDrawser />
             </header>
         </>
     )

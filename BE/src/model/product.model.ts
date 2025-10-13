@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
-import volumeOptionSchema from './volumeOption.model.js'
+import volumesSchema from './volumes.model.js'
 
-function arrayLimit(val: Array<string>) {
-    return val.length <= 5
+function arrayLimit(v: Array<string>) {
+    return v.length <= 5
 }
 
 const productSchema = new mongoose.Schema({
@@ -12,35 +12,32 @@ const productSchema = new mongoose.Schema({
         trim: true
     },
     brand: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Brand",
-        required: true
+        type: mongoose.Types.ObjectId,
+        ref: "Brand"
+    },
+    category: {
+        type: mongoose.Types.ObjectId,
+        ref: "category",
     },
     description: {
         type: String,
         default: ""
     },
-    category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
-        required: true
-    },
+    volumes: [volumesSchema],
     notes: {
         top: [String],
         heart: [String],
         base: [String]
     },
-    volumes: [volumeOptionSchema],
-    imgUrls: {
-        type: [String],
-        validate: [arrayLimit, 'Maximum 5 pictures']
-    },
-    isActive: {
-        type: Boolean,
-        default: true
-    }
+    imgUrls: [
+        {
+            url: String,
+            publicId: String
+        }
+    ]
 },
     { timestamps: true }
 )
 
-export const Product = mongoose.model("Product", productSchema)
+const Product = mongoose.model("Product", productSchema)
+export default Product

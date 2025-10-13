@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button'
-import { UserCircle } from 'lucide-react'
+import { Button } from './ui/button'
+import { User } from 'lucide-react'
 
 const UserAction = () => {
     return (
@@ -9,7 +9,7 @@ const UserAction = () => {
                 size="icon"
                 className="cursor-pointer rounded-full"
             >
-                <UserCircle />
+                <User />
             </Button>
         </>
     )
