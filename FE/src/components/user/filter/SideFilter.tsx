@@ -19,7 +19,7 @@ const SideFilter = () => {
                 <BrandFilter />
                 <GenderFilter />
                 <PriceFilter />
-                <div className="flex justify-between items-center mt-auto">
+                <div className="flex justify-between items-center mt-auto md:hidden">
                     <Button
                         variant="secondary"
                         onClick={()=>dispatch(setIsOpenFilter())}

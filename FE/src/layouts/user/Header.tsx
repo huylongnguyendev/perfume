@@ -1,3 +1,4 @@
+import Cart from '@/components/user/cart/Cart'
 import ActionsLeft from '@/components/user/header/actions/ActionsLeft'
 import ActionsRight from '@/components/user/header/actions/ActionsRight'
 import NavBar from '@/components/user/header/navbar/NavBar'
@@ -11,6 +12,7 @@ const Header = () => {
                 <Logo />
                 <NavBar />
                 <ActionsRight />
+                <Cart />
             </header>
         </>
     )

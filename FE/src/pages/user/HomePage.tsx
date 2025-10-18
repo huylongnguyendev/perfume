@@ -1,5 +1,5 @@
 import BestSell from '@/components/user/section/BestSell'
-import Feature from '@/components/user/section/Feature'
+import Feature from '@/components/user/section/feature/Feature'
 import Hero from '@/components/user/section/Hero'
 import NewArrival from '@/components/user/section/NewArrival'
 
