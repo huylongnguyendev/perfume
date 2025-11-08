@@ -9,11 +9,13 @@ import { useDispatch, useSelector } from 'react-redux'
 const ProductList = () => {
     const { items, loading } = useSelector((state: RootState) => state.productList)
     const filters = useSelector((state: RootState) => state.productFilter)
+    const sort = useSelector((state: RootState) => state.productSort.sort)
     const page = useSelector((state: RootState) => state.productList.page)
     const dispatch = useDispatch<AppDispatch>()
     useEffect(() => {
-        dispatch(fetchAllProduct({ ...filters, page, limit: 12 }))
-    }, [filters, page])
+        dispatch(fetchAllProduct({ ...filters, sort, page, limit: 12 }))
+    }, [filters, sort, page]
+    )
 
     if (loading === "loading")
         return (<Loading />)
@@ -23,13 +25,13 @@ const ProductList = () => {
     return (
         <>
             <div>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                     {
-                        loading === "success" && (
+                        loading === "success" && Array.isArray(items) ? (
                             items.map(product => (<li key={product._id}>
-                                <ProductItem product={product} />
+                                <ProductItem product={product}/>
                             </li>))
-                        )
+                        ) : (<Empty content="Không tìm thấy sản phẩm" />)
                     }
                 </ul>
             </div>

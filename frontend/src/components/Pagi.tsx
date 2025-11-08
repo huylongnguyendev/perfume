@@ -15,21 +15,28 @@ const Pagi = () => {
     const totalPages = useSelector((state: RootState) => state.productList.totalPages)
     const page = useSelector((state: RootState) => state.productList.page)
 
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }
+
     const dispatch = useDispatch<AppDispatch>()
     const handlePrevios = () => {
         if (page > 1) {
             dispatch(setPage(page - 1))
+            scrollToTop()
         }
     }
 
     const handleNext = () => {
         if (page < totalPages) {
             dispatch(setPage(page + 1))
+            scrollToTop()
         }
     }
 
     const handlePage = (curr: number | string) => {
         dispatch(setPage(curr))
+        scrollToTop()
     }
 
     const generatePages = () => {
@@ -61,13 +68,13 @@ const Pagi = () => {
                 <PaginationItem>
                     <PaginationPrevious
                         onClick={handlePrevios}
-                        className={cn("cursor-pointer", page === 1? "pointer-events-none opacity-50" : "pointer-events-auto")}
+                        className={cn("cursor-pointer", page === 1 ? "pointer-events-none opacity-50" : "pointer-events-auto")}
                     />
                 </PaginationItem>
 
                 {
                     pages.map((p) => (
-                        <PaginationItem
+                        <PaginationItem key={p + "pagination"}
                             className={cn("cursor-pointer")}
                         >
                             {
@@ -89,7 +96,7 @@ const Pagi = () => {
                 <PaginationItem>
                     <PaginationNext
                         onClick={handleNext}
-                        className={cn("cursor-pointer", page === totalPages? "pointer-events-none opacity-50" : "pointer-events-auto")}
+                        className={cn("cursor-pointer", page === totalPages ? "pointer-events-none opacity-50" : "pointer-events-auto")}
                     />
                 </PaginationItem>
             </PaginationContent>

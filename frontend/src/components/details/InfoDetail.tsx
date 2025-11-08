@@ -2,25 +2,66 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import type { ProductType } from '@/lib/types'
 import { cn } from '@/lib/utils'
+import { addToCart } from '@/redux/cartSlice'
+import type { AppDispatch, RootState } from '@/redux/store'
 import { Heart, Minus, Plus, ShoppingCart } from 'lucide-react'
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'sonner'
 
 interface Props {
     item: ProductType
 }
 
 const InfoDetail = ({ item }: Props) => {
-    const [volSelected, setVolSelected] = useState<string>(item.volumes[0].sku)
-    const [quanity, setQuantity] = useState<number>(1)
+    const [quantity, setQuantity] = useState<number>(1)
+    const message = useSelector((state: RootState) => state.cart.message)
+    const dispatch = useDispatch<AppDispatch>()
+
+    const defaultVol = item.volumes?.[0]
+
+    const [size, setSize] = useState<number>(defaultVol?.size ?? 0)
+    const [priceOrig, setPriceOrig] = useState<number>(defaultVol?.priceOrig ?? 0)
+    const [price, setPrice] = useState<number>(defaultVol?.price ?? 0)
+    const [discount, setDiscount] = useState<number>(defaultVol?.discount ?? 0)
+    const [stock, setStock] = useState<number>(defaultVol?.onStock ?? 0)
+
+    const handleActiveVol = (sku: string) => {
+        const selectVol = item.volumes.filter(vol => vol.sku === sku)[0]
+
+        setSize(selectVol.size)
+        setPriceOrig(selectVol.priceOrig)
+        setPrice(selectVol.price)
+        setDiscount(selectVol.discount)
+        setStock(selectVol.onStock)
+    }
 
     const handleDecrement = () => {
-        if (quanity > 1)
+        if (quantity > 1)
             setQuantity(prev => prev - 1)
     }
 
     const handleIncrement = () => {
-        const isOutStock = item.volumes.map(vol => vol.sku === volSelected && vol.onStock === quanity)
-        isOutStock && setQuantity(prev => prev + 1)
+        if (stock && stock > 0 && quantity < stock)
+            setQuantity(prev => prev + 1)
+    }
+
+    const handleAddToCart = async () => {
+        try {
+            await (dispatch(addToCart({
+                productId: item._id,
+                quantity,
+                selectedVolume: {
+                    discount,
+                    price,
+                    priceOrig,
+                    volume: size
+                }
+            })))
+            toast.success(message ?? "Thêm sản phẩm vào giỏ hàng thành công")
+        } catch (error: any) {
+            toast.error(error?.message ?? "Thêm vào giỏ hàng thất bại")
+        }
     }
 
     return (
@@ -29,42 +70,30 @@ const InfoDetail = ({ item }: Props) => {
                 <div className="flex gap-2">
                     <h2 className="text-xl font-semibold">{item?.name}</h2>
                     {
-                        item.volumes.map(vol => vol.sku === volSelected && vol.discount && (
+                        discount > 0 && (
                             <Badge
-                                key={vol.sku + "discount"}
-                                variant="destructive" className="text-base">
-                                -{vol.discount}%
+                                variant="destructive"
+                            >
+                                -{discount}%
                             </Badge>
-                        ) || "")
+                        )
                     }
                 </div>
                 <div className="leading-5 text-muted-foreground">
                     <p>{item?.category}</p>
                     <p>Giới tính: {item?.gender}</p>
-                    {
-                        item.volumes.map(vol => vol.sku === volSelected && (
-                            vol.onStock && (
-                                <p key={vol.sku + "stock"}>Kho hàng: {vol.onStock}</p>
-                            ) || (<p key={vol.sku + "stock"}>Kho hàng: Hết hàng</p>)
-                        ))
-                    }
+                    <p>Kho hàng: {stock > 0 && stock || "Tạm hết hàng"}</p>
                 </div>
-                {
-                    item.volumes.map(vol => vol.sku === volSelected && (
-                        <div
-                            key={vol.sku + "prices"}
-                            className="text-muted-foreground font-semibold">
-                            {
-                                vol.discount && (
-                                    <p
-                                        key={vol.sku + "orginalPrice"}
-                                        className="line-through">{vol.priceOrig.toLocaleString("vi-VN")}đ</p>
-                                ) || ""
-                            }
-                            <p className="text-lg text-primary">{vol.price.toLocaleString("vi-VN")}đ</p>
-                        </div>
-                    ))
-                }
+
+                <div className="font-semibold">
+                    {priceOrig > price && (
+                        <p className="text-sm text-muted-foreground line-through">{priceOrig.toLocaleString("vi-VN")}đ</p>
+                    )}
+                    {price > 0 && (
+                        <p className="text-primary">{price.toLocaleString("vi-VN")}đ</p>
+                    )}
+                </div>
+
                 <p className="text-muted-foreground">
                     {item?.description}
                 </p>
@@ -74,8 +103,8 @@ const InfoDetail = ({ item }: Props) => {
                             <Button
                                 key={vol.sku + "btn"}
                                 variant="outline"
-                                onClick={() => setVolSelected(vol.sku)}
-                                className={cn("cursor-pointer", vol.sku === volSelected && "border border-primary text-primary")}
+                                onClick={() => handleActiveVol(vol.sku)}
+                                className={cn("cursor-pointer", size === vol.size && "border border-primary text-primary")}
                             >{vol.size}ml</Button>
                         ))
                     }
@@ -87,16 +116,18 @@ const InfoDetail = ({ item }: Props) => {
                             variant="ghost"
                             size="icon-sm"
                             onClick={handleDecrement}
-                            className={cn("cursor-pointer", quanity === 1 && "pointer-events-none opacity-50")}
+                            className={cn("cursor-pointer", quantity === 1 && stock === 0 && "pointer-events-none opacity-50")}
                         >
                             <Minus />
                         </Button>
-                        <p>{quanity}</p>
+                        <p
+                            className={stock === 0 && "opacity-50" || "opacity-100"}
+                        >{stock > 0 ? quantity : stock}</p>
                         <Button
                             variant="ghost"
                             size="icon-sm"
                             onClick={handleIncrement}
-                            className={cn("cursor-pointer", item.volumes.map(vol => vol.sku === volSelected && vol.onStock === quanity && "pointer-events-none opacity-50"))}
+                            className={cn("cursor-pointer", item.volumes.map(vol => vol.onStock === quantity || stock === 0 && "pointer-events-none opacity-50"))}
                         >
                             <Plus />
                         </Button>
@@ -104,7 +135,8 @@ const InfoDetail = ({ item }: Props) => {
                 </div>
                 <div className="space-x-1">
                     <Button
-                        className="cursor-pointer"
+                        className={cn("cursor-pointer", stock === 0 && "opacity-50 pointer-events-none")}
+                        onClick={handleAddToCart}
                     >
                         <ShoppingCart />
                         <p>Thêm vào giỏ hàng</p>

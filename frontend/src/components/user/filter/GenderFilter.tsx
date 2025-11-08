@@ -15,7 +15,6 @@ const GenderFilter = () => {
     const handleActiveGender = (genderValue: "Nam" | "Nữ" | "Unisex" | "All") => {
         const newStateGender = genderList.map(gen => gen.value === genderValue ? { ...gen, isActive: true } : { ...gen, isActive: false })
         setGenderList(newStateGender)
-        console.log(genderValue)
         genderValue === "All"
             ? dispatch(resetFilters())
             : dispatch(setFilters({ gender: genderValue }))

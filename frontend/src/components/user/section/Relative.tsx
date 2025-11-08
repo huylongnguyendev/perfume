@@ -2,13 +2,28 @@ import Section from '@/layouts/user/Section'
 import ShowMore from '../ShowMore'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
-import ProductItem from '../../product/ProductItem'
+import ProductCard from '@/components/product/ProductCard'
+import { useDispatch, useSelector } from 'react-redux'
+import type { AppDispatch, RootState } from '@/redux/store'
+import { useEffect } from 'react'
+import { fetchAllProduct } from '@/redux/productListSlice'
 
-const Relative = () => {
+interface Props {
+    filter: string
+}
+
+const Relative = ({ filter }: Props) => {
+    const items = useSelector((state: RootState) => state.productList.items)
+    const dispatch = useDispatch<AppDispatch>()
+
+    useEffect(() => {
+        dispatch(fetchAllProduct({ brand: filter }))
+    }, [dispatch])
+
     return (
         <>
             <Section title="Sản phẩm liên quan">
-                <ShowMore />
+                <ShowMore filter={filter} />
                 <Swiper
                     spaceBetween={20}
                     autoplay={{
@@ -32,16 +47,11 @@ const Relative = () => {
                     modules={[Autoplay]}
                     className="min-h-[399px] p-1! mt-5"
                 >
-                    <SwiperSlide><ProductItem /></SwiperSlide>
-                    <SwiperSlide><ProductItem /></SwiperSlide>
-                    <SwiperSlide><ProductItem /></SwiperSlide>
-                    <SwiperSlide><ProductItem /></SwiperSlide>
-                    <SwiperSlide><ProductItem /></SwiperSlide>
-                    <SwiperSlide><ProductItem /></SwiperSlide>
-                    <SwiperSlide><ProductItem /></SwiperSlide>
-                    <SwiperSlide><ProductItem /></SwiperSlide>
-                    <SwiperSlide><ProductItem /></SwiperSlide>
-                    <SwiperSlide><ProductItem /></SwiperSlide>
+                    {
+                        items.map(item => (
+                            <SwiperSlide><ProductCard key={item._id} product={item} /></SwiperSlide>
+                        ))
+                    }
 
                 </Swiper>
             </Section>

@@ -23,9 +23,21 @@ export const getAllProduct = async (req, res) => {
         if (req.query.maxPrice) filters['volumes.price'].$lte = Number(req.query.maxPrice)
     }
 
+    let sortOption = {}
 
+    switch (req.query.sort) {
+        case "newest": sortOption = { ...sortOption, createdAt: -1 }
+            break
+        case "priceAsc": sortOption = { ...sortOption, "volumes.price": 1 }
+            break
+        case "priceDesc": sortOption = { ...sortOption, "volumes.price": -1 }
+            break
+        default: sortOption = { ...sortOption }
+            break
+    }
+    
     try {
-        const products = await Product.find(filters).skip(skip).limit(limit)
+        const products = await Product.find(filters).skip(skip).limit(limit).sort(sortOption)
         const total = await Product.countDocuments(filters)
         res.status(200).json({
             pages,
@@ -38,6 +50,7 @@ export const getAllProduct = async (req, res) => {
         res.status(500).json({ message: "Lỗi hệ thống" })
     }
 }
+
 
 export const getOneProduct = async (req, res) => {
     try {

@@ -4,6 +4,10 @@ import authReducer from './authSlice'
 import productListReducer from './productListSlice'
 import productFilterReducer from './productFilterSlice'
 import productReducer from './productSlice'
+import productSortReducer from './productSort'
+import brandReducer from './brandSlice'
+import cartReducer from './cartSlice'
+import breadCrumbReducer from './breadCrumbSlice'
 
 
 export const store = configureStore({
@@ -13,6 +17,10 @@ export const store = configureStore({
         productList: productListReducer,
         productFilter: productFilterReducer,
         product: productReducer,
+        productSort: productSortReducer,
+        brands: brandReducer,
+        cart: cartReducer,
+        breadCrumb: breadCrumbReducer,
     }
 })
 

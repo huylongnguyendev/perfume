@@ -1,5 +1,5 @@
 import { Award, Facebook, IdCard, Truck, Twitter, Youtube } from 'lucide-react'
-import type { FeatureType, GenderType, LinkIconType, LinkType, PageType } from './types'
+import type { FeatureType, GenderType, LinkIconType, LinkType, PageType, SortType } from './types'
 
 export const listPage: Array<PageType> = [
     {
@@ -11,21 +11,27 @@ export const listPage: Array<PageType> = [
     {
         id: 2,
         name: "giới thiệu",
-        url: "/introduce",
+        url: "/shop/about-us",
         isActive: false
     },
     {
         id: 3,
         name: "sản phẩm",
-        url: "/products",
+        url: "/shop/products",
         isActive: false
     },
     {
         id: 4,
         name: "liên hệ",
-        url: "/contact",
+        url: "/shop/contact",
         isActive: false
-    }
+    },
+    {
+        id: 5,
+        name: "quản lý",
+        url: "/admin",
+        isActive: false
+    },
 ]
 
 export const featureList: Array<FeatureType> = [
@@ -110,5 +116,24 @@ export const genders: Array<GenderType> = [
         label: "Unisex",
         value: "Unisex",
         isActive: false
+    },
+]
+
+export const sortList: Array<SortType> = [
+    {
+        label: "Tất cả",
+        value: "default"
+    },
+    {
+        label: "Mới nhất",
+        value: "newest"
+    },
+    {
+        label: "Giá tăng dần",
+        value: "priceAsc"
+    },
+    {
+        label: "Giá giảm dần",
+        value: "priceDesc"
     },
 ]

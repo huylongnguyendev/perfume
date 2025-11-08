@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
         default: false
     },
     avatarUrl: String
-})
+}, {timestamps: true})
 
 const User = mongoose.model("User", UserSchema)
 export default User

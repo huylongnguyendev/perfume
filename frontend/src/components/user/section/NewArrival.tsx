@@ -3,12 +3,25 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/swiper.css'
 import ShowMore from '../ShowMore'
+import { useDispatch, useSelector } from 'react-redux'
+import type { AppDispatch, RootState } from '@/redux/store'
+import { useEffect } from 'react'
+import { fetchAllProduct } from '@/redux/productListSlice'
+import { setFilters } from '@/redux/productFilterSlice'
+import ProductCard from '@/components/product/ProductCard'
 
 const NewArrival = () => {
+    const items = useSelector((state: RootState) => state.productList.items)
+    const filters = useSelector((state: RootState) => state.productFilter)
+    const dispatch = useDispatch<AppDispatch>()
+    useEffect(() => {
+        dispatch(setFilters({...filters, sort: "newest"}))
+        dispatch(fetchAllProduct({...filters, limit: 10}))
+    },[])
     return (
         <>
             <Section title="Sản phẩm mới">
-                <ShowMore />
+                <ShowMore sort="newest" />
                 <Swiper
                     spaceBetween={20}
                     autoplay={{
@@ -32,7 +45,11 @@ const NewArrival = () => {
                     modules={[Autoplay]}
                     className="min-h-[399px] p-1! mt-5"
                 >
-                    {/* <SwiperSlide><ProductItem /></SwiperSlide> */}
+                    {
+                        items.map(item => (
+                            <SwiperSlide><ProductCard key={item._id} product={item}/></SwiperSlide>
+                        ))
+                    }
                 </Swiper>
             </Section>
         </>

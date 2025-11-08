@@ -5,7 +5,7 @@ import UserAction from './UserAction'
 const ActionsRight = () => {
   return (
     <>
-      <div className="space-x-1">
+      <div className="inline-flex gap-2 items-center">
         <SearchAction hidden="hidden"/>
         <CartAction />
         <UserAction />
