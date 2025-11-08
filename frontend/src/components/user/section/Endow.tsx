@@ -8,8 +8,7 @@ import type { RootState } from '@/redux/store'
 
 const Endow = () => {
     const items = useSelector((state: RootState) => state.productList.items)
-
-    const endowItems = items.filter(item => item.volumes[0].discount > 0)
+    const endowItems = items?.filter(item => item.volumes[0].discount > 0)
 
     return (
         <>
@@ -40,7 +39,7 @@ const Endow = () => {
                         className="min-h-[399px] p-1! mt-5"
                     >
                         {
-                            endowItems.map(item => (
+                            endowItems?.map(item => (
                                 <SwiperSlide><ProductCard key={item._id} product={item} /></SwiperSlide>
                             ))
                         }

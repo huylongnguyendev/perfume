@@ -123,7 +123,8 @@
     "wrappy": "^1.0.2"
   },
   "scripts": {
-    "dev": "nodemon ./src/server.js"
+    "dev": "nodemon ./src/server.js",
+    "start": "node ./src/server.js"
   },
   "keywords": [],
   "author": "",

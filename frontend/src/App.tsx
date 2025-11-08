@@ -19,7 +19,6 @@ import AdminPage from './pages/admin/AdminPage'
 import ProductManager from './pages/admin/ProductManager'
 import Cookies from 'js-cookie'
 
-
 const App = () => {
   const { message, loading } = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch<AppDispatch>()

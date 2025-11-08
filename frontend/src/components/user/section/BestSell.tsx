@@ -45,7 +45,7 @@ const BestSell = () => {
                         className="min-h-[399px] p-1! mt-5"
                     >
                         {
-                            items.map(item => (
+                            items?.map(item => (
                                 <SwiperSlide><ProductCard key={item._id} product={item} /></SwiperSlide>
                             ))
                         }
