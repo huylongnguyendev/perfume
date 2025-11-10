@@ -1,0 +1,7 @@
+{
+  "name": "railway-wrapper",
+  "scripts": {
+    "build": "echo 'No build needed'",
+    "start": "cd backend && npm start"
+  }
+}
