@@ -11,7 +11,7 @@ import { toast, Toaster } from 'sonner'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from './redux/store'
 import { useEffect } from 'react'
-import { initializeAuth } from './redux/authSlice'
+import { getProfile, initializeAuth } from './redux/authSlice'
 import { fetchCart } from './redux/cartSlice'
 import IntroducePage from './pages/user/IntroducePage'
 import AdminRoute from './pages/admin/AdminRoute'
@@ -20,17 +20,17 @@ import ProductManager from './pages/admin/ProductManager'
 import Cookies from 'js-cookie'
 
 const App = () => {
-  const { message, loading } = useSelector((state: RootState) => state.auth)
+  const { message, loading, isAuthenticated } = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    dispatch(initializeAuth()).then(() => {
-      const token = Cookies.get("accessToken")
-      if (token) {
-        dispatch(fetchCart())
-      }
-    })
-  }, [dispatch])
+    const token = Cookies.get("accessToken")
+    if (token && isAuthenticated) {
+      dispatch(fetchCart())
+      dispatch(getProfile())
+    }
+  }, [dispatch, isAuthenticated])
+
 
 
   useEffect(() => {
