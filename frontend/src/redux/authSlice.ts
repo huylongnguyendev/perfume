@@ -65,6 +65,8 @@ export const refreshToken = createAsyncThunk<UserResponse, void, { rejectValue: 
 
 export const initializeAuth = createAsyncThunk('auth/initializeAuth', async (_, thunkAPI) => {
   try {
+    const refreshTokenCookie = Cookies.get("refreshToken")
+    if (!refreshTokenCookie) return
     await thunkAPI.dispatch(refreshToken()).unwrap()
     await thunkAPI.dispatch(getProfile()).unwrap()
   } catch (err) {
