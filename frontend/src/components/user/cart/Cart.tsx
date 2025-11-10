@@ -40,14 +40,14 @@ const Cart = () => {
         <div className="h-full overflow-y-scroll">
           <ul className="p-2 border rounded-lg space-y-1">
             {
-              loading === "loading" ? <li><Loading /></li> :
-                items.length > 0 && items ? (
+              loading === "loading" ? <li><Loading /></li> : !items || items.length === 0 ? (<li>Giỏ hàng trống</li>) :
+                items.length > 0 && items && (
                   items.map((item, index) => (
                     <li key={index} className="p-2 bg-secondary rounded-lg">
                       <ProductCart item={item} />
                     </li>
                   ))
-                ) : <li>Giỏ hàng trống</li>
+                )
             }
           </ul>
         </div>
