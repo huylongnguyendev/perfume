@@ -24,20 +24,13 @@ const App = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    const refreshTokenCookie = Cookies.get("refreshToken")
-    if (refreshTokenCookie) {
-      dispatch(refreshToken())
-        .unwrap()
-        .then(() => {
-          dispatch(getProfile())
-          dispatch(fetchCart())
-        })
-        .catch(() => {
-          Cookies.remove("accessToken")
-          Cookies.remove("refreshToken")
-        })
+    const token = Cookies.get("accessToken")
+    if (token) {
+      dispatch(fetchCart())
+      dispatch(getProfile())
     }
   }, [dispatch])
+
 
   useEffect(() => {
     if (loading === "success" && message)
