@@ -31,7 +31,9 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(fetchCart())
-  },[dispatch])
+  }, [dispatch])
+
+  if (!items || items.length === 0) return <li className="text-center">Giỏ hàng trống</li>
 
   return (
     <>
@@ -40,15 +42,14 @@ const Cart = () => {
         <div className="h-full overflow-y-scroll">
           <ul className="p-2 border rounded-lg space-y-1">
             {
-              loading === "loading" && <li><Loading /></li> ||
-              items.length > 0 && loading === "success" && (
-                items.map((item, index) => (
-                  <li key={index} className="p-2 bg-secondary rounded-lg">
-                    <ProductCart item={item} />
-                  </li>
-                ))
-              )
-              || <li className="text-center">Giỏ hàng trống</li>
+              loading === "loading" ? <li><Loading /></li> :
+                items.length > 0 && loading === "success" && (
+                  items.map((item, index) => (
+                    <li key={index} className="p-2 bg-secondary rounded-lg">
+                      <ProductCart item={item} />
+                    </li>
+                  ))
+                )
             }
           </ul>
         </div>
