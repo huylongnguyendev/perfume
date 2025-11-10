@@ -4,6 +4,7 @@ import { generateTokens, saveRefreshToken } from '../services/user.service.js'
 import jwt from 'jsonwebtoken'
 import bcrypt, { genSaltSync } from 'bcrypt'
 import dotenv from 'dotenv'
+import { strict } from 'assert'
 dotenv.config()
 const salt = genSaltSync(12)
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET
@@ -31,7 +32,7 @@ export const authSignIn = async (req, res) => {
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+            sameSite: "Strict",
             maxAge: REFRESH_TOKEN_TTl
         })
 
@@ -89,7 +90,7 @@ export const authSignOut = async (req, res) => {
         res.clearCookie("refreshToken", {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax"
+            sameSite: process.env.NODE_ENV === "development" ? "None" : "Lax"
         })
         res.sendStatus(200)
     } catch (error) {

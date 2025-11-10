@@ -1,24 +1,50 @@
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import prd from '@/assets/prd_3.png'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { Check, Edit, Trash2, X } from 'lucide-react'
-import { useSelector } from 'react-redux'
-import type { RootState } from '@/redux/store'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import type { AppDispatch, RootState } from '@/redux/store'
+import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
-
+import { toast } from 'sonner'
+import { deleteProduct } from '@/redux/productSlice'
+import { fetchAllProduct } from '@/redux/productListSlice'
+import { setIsOpenAddProduct } from '@/redux/toggleSlice'
+import { setIdToChange } from '@/redux/changeProductSlice'
 
 const ProductListTable = () => {
   const { items } = useSelector((state: RootState) => state.productList)
+  const filters = useSelector((state: RootState) => state.productFilter)
+  const sort = useSelector((state: RootState) => state.productSort.sort)
+  const page = useSelector((state: RootState) => state.productList.page)
+  const dispatch = useDispatch<AppDispatch>()
   const [volSelected, setVolSelected] = useState<Record<string, any>>({})
 
   if (!items) return
+
 
   const selectSize = (productId: string, sku: string) => {
     setVolSelected(prev => ({ ...prev, [productId]: sku }))
   }
 
+  const handleDelete = async (id: string) => {
+    try {
+      await dispatch(deleteProduct(id))
+      await dispatch(fetchAllProduct({}))
+      toast.success("Xóa sản phẩm thành công")
+    } catch (error: any) {
+      toast.error(error)
+    }
+  }
+
+  const handleUpdateProduct = (id: string) => {
+    dispatch(setIdToChange(id))
+    dispatch(setIsOpenAddProduct())
+  }
+
+  useEffect(() => {
+    dispatch(fetchAllProduct({ ...filters, brand: "", gender: "", sort: "", page, limit: 12 }))
+  }, [filters, sort, page])
 
   return (
     <>
@@ -47,7 +73,7 @@ const ProductListTable = () => {
                   return (
                     <TableRow key={item._id} >
                       <TableCell className="sticky left-0 flex items-center gap-5 w-xs bg-white shadow-md shadow-primary-foreground">
-                        <img src={prd} alt="" width={50} height={50} />
+                        <img src={item.images.find(img => img !== "")} alt={item.name} width={50} height={50} />
                         <div className="space-y-2">
                           <h3 className="font-semibold capitalize line-clamp-1">{item.name}</h3>
                           <div className="space-y-2">
@@ -102,6 +128,7 @@ const ProductListTable = () => {
                             <Button
                               variant="ghost"
                               size="icon-sm"
+                              onClick={() => handleUpdateProduct(item._id)}
                               className="cursor-pointer">
                               <Edit />
                             </Button>
@@ -113,6 +140,7 @@ const ProductListTable = () => {
                             <Button
                               variant="ghost"
                               size="icon-sm"
+                              onClick={() => handleDelete(item._id)}
                               className="cursor-pointer text-destructive">
                               <Trash2 />
                             </Button>
@@ -129,6 +157,7 @@ const ProductListTable = () => {
                   <TableCell colSpan={7} className="text-center space-y-2">
                     <p>Không có sản phẩm</p>
                     <Button
+                      onClick={() => dispatch(setIsOpenAddProduct())}
                       className="cursor-pointer"
                     >Thêm sản phẩm mới</Button>
                   </TableCell>

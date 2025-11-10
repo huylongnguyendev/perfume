@@ -1,13 +1,14 @@
 import express from 'express'
-import { createProduct, getAllProduct, getOneProduct } from '../controllers/product.controller.js'
+import { createProduct, deleteProduct, getAllProduct, getOneProduct, updateProduct } from '../controllers/product.controller.js'
 import { authMiddleware } from '../middleware/admin.middleware.js'
 
 const router = express.Router()
 
 router.get("/", getAllProduct)
 router.get("/:id", getOneProduct)
-router.post("/", authMiddleware, createProduct)
-
+router.post("/", createProduct)
+router.put("/:id", updateProduct)
+router.delete("/:id", deleteProduct)
 
 const productRouter = router
 export default productRouter

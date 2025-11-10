@@ -1,19 +1,18 @@
 import axios from 'axios'
-
-const REACT_PRODUCT_API = import.meta.env.VITE_REACT_PRODUCT_API
+import BASE_URL from './BASEURL'
 
 const axiosProductClient = axios.create({
-    baseURL: REACT_PRODUCT_API,
-    headers: {
-        "Content-Type": "application/json"
-    }
+  baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json"
+  }
 })
 
 axiosProductClient.interceptors.response.use(
-    res => res,
-    err => {
-        return Promise.reject(err)
-    }
+  res => res,
+  err => {
+    return Promise.reject(err)
+  }
 )
 
 export default axiosProductClient

@@ -16,7 +16,7 @@ const ShowMore = ({ sort, filter }: Props) => {
     const handleGotoProduct = () => {
         dispatch(setSort(sort))
         dispatch(setFilters({ brand: filter }))
-        navigate("products")
+        navigate("/shop/products")
     }
 
     return (

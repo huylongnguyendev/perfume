@@ -50,7 +50,7 @@ export const featureList: Array<FeatureType> = [
     {
         id: 12,
         name: "Ưu đãi hấp dẫn",
-        desc: "Trở thành FumeiMember nhận các chương trình ưu đãi lên đến 10% và nhận được nhiều ưu đãi từ các chương trình khuyến mãi khác (có thể áp dụng nhiều ưu đãi cùng lúc)",
+        desc: "Trở thành FumeiMember nhận các chương trình ưu đãi hấp dẫn",
         icon: IdCard,
     },
 ]

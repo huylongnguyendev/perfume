@@ -67,7 +67,7 @@ export interface ProductAddType {
   brand: string
   description: string
   gender: "Nam" | "Nữ" | "Unisex"
-  // category: string
+  category: string
   scents: ScentsType
   volumes: Array<VolumeAddType>
   images?: string[]

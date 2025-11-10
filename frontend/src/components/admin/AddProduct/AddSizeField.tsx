@@ -34,7 +34,7 @@ const AddSizeField = () => {
             <div key={field.id} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 ">
               <div className="space-y-2">
                 <Label htmlFor="sku" className="text-sm font-semibold">SKU</Label>
-                <Input type="number" className="bg-card" id="sku" {...register(`volumes.${index}.sku`)} />
+                <Input type="text" className="bg-card" id="sku" {...register(`volumes.${index}.sku`)} />
                 <p className="text-xs text-destructive">
                   {Array.isArray(errors.volumes) && errors.volumes[index]?.sku?.message}
                 </p>
