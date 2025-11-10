@@ -5,11 +5,10 @@ import type { RootState } from '@/redux/store'
 import Loading from '@/components/Loading'
 
 const AdminRoute = () => {
-  const { user, loading, isAuthenticated } = useSelector((state: RootState) => state.auth)
+  const { user, loading } = useSelector((state: RootState) => state.auth)
 
   if (loading === "loading") return <Loading />
-  // if (!isAuthenticated) return <Navigate to="/shop" replace />
-  if (!user?.admin) return <Navigate to="/shop" replace />
+  if (!user?.admin && loading === "success") return <Navigate to="/shop" replace />
 
   return <Outlet />
 }
