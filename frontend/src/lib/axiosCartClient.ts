@@ -1,9 +1,10 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { axiosRefreshClient } from '@/lib/axiosAuthClient'
+import BASE_URL from './BASEURL'
 
 const axiosCartClient = axios.create({
-    baseURL: import.meta.env.VITE_REACT_PRODUCT_API,
+    baseURL: BASE_URL,
     headers: { "Content-Type": "application/json" },
     withCredentials: true
 })

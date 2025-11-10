@@ -8,20 +8,22 @@ import productSortReducer from './productSort'
 import brandReducer from './brandSlice'
 import cartReducer from './cartSlice'
 import breadCrumbReducer from './breadCrumbSlice'
+import changeProductReducer from './changeProductSlice'
 
 
 export const store = configureStore({
-    reducer: {
-        toggle: toggleReducer,
-        auth: authReducer,
-        productList: productListReducer,
-        productFilter: productFilterReducer,
-        product: productReducer,
-        productSort: productSortReducer,
-        brands: brandReducer,
-        cart: cartReducer,
-        breadCrumb: breadCrumbReducer,
-    }
+  reducer: {
+    toggle: toggleReducer,
+    auth: authReducer,
+    productList: productListReducer,
+    productFilter: productFilterReducer,
+    product: productReducer,
+    productSort: productSortReducer,
+    brands: brandReducer,
+    cart: cartReducer,
+    breadCrumb: breadCrumbReducer,
+    changeProduct: changeProductReducer,
+  }
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

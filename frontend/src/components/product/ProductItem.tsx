@@ -3,7 +3,6 @@ import type { ProductType } from '@/lib/types'
 import { useState } from 'react'
 import { Button } from '../ui/button'
 import { ShoppingCart } from 'lucide-react'
-import prd from '@/assets/prd_3.png'
 import { Badge } from '../ui/badge'
 import ProductImgActions from './ProductImgActions'
 import { useDispatch, useSelector } from 'react-redux'
@@ -57,14 +56,12 @@ const ProductItem = ({ product }: Props) => {
     return (
         <>
             <div className="shadow-md rounded-md p-2 bg-card transition-all duration-300 hover:shadow-xl">
-                <div className="relative group overflow-hidden flex-1">
-                    <img src={prd} alt={product._id} className="size-full object-cover transition-all duration-300 group-hover:scale-110" />
+                <div className="relative group overflow-hidden flex-1 h-60">
+                    <img src={product.images.find(img => img !== "")} alt={product._id} className="size-full object-cover transition-all duration-300 group-hover:scale-110" />
                     {
                         discount > 0 && (
                             <Badge
-
-                                variant="destructive"
-                                className="absolute top-1 left-1"
+                                className="absolute top-1 left-1 bg-gradient-to-r from-primary via-purple-50-500 to-pink-500 border-pink-500"
                             >-{discount}%</Badge>
                         )
 

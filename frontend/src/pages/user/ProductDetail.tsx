@@ -33,7 +33,7 @@ const ProductDetail = () => {
                     <div className="mt-28 px-4 md:px-12 lg:px-16">
                         <BreadCrumbPage />
                         <div className="md:flex gap-5 space-y-1">
-                            <ImgDetail />
+                            <ImgDetail image={item.images} name={item.name} />
                             <InfoDetail item={item} />
                         </div>
                         <DescDetail item={item} />

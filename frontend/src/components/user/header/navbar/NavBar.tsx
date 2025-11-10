@@ -35,7 +35,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav ref={ref} className={cn("max-md:absolute max-md:bg-background max-md:w-11/12 max-md:shadow-md top-0 -left-96 max-md:h-dvh p-4 transition-all duration-300 z-50", isOpenMenu && "left-0")}>
+      <nav ref={ref} className={cn("max-md:absolute max-md:bg-background max-md:w-11/12 max-md:shadow-md top-0 -left-[1000px] max-md:h-dvh p-4 transition-all duration-300 z-50", isOpenMenu && "left-0")}>
         <ul className="flex max-md:flex-col max-md:items-start gap-5 items-center">
           <Button
             variant="ghost"

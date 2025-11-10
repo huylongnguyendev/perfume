@@ -14,7 +14,7 @@ import type { GenderType, SortType } from '@/lib/types'
 import { setSort } from '@/redux/productSort'
 
 const FilterProduct = () => {
-  const { search, maxPrice } = useSelector((state: RootState) => state.productFilter)
+  const { search } = useSelector((state: RootState) => state.productFilter)
   const filters = useSelector((state: RootState) => state.productFilter)
   const sort = useSelector((state: RootState) => state.productSort.sort)
   const brands = useSelector((state: RootState) => state.brands.items)
@@ -22,15 +22,18 @@ const FilterProduct = () => {
   const [listSort] = useState<Array<SortType>>(sortList)
   const dispatch = useDispatch<AppDispatch>()
 
-  const handleSelectGender = (value: string) => {
-    const gender = value !== "All" ? value : ""
-    dispatch(setFilters({ gender, search: "" }))
+  const handleSelectGender = async (value: string) => {
+    if (value !== "All") {
+      await dispatch(fetchAllProduct({ ...filters, gender: value }))
+    }
+    else {
+      await dispatch(fetchAllProduct({ ...filters, gender: "" }))
+    }
   }
 
-  useEffect(() => {
-    dispatch(fetchAllProduct({ ...filters, sort }))
-  }, [maxPrice, sort])
-
+  const handleFilterBrand = async (brand: string) => {
+    await dispatch(fetchAllProduct({ brand }))
+  }
 
   useEffect(() => {
     dispatch(fetchAllBrands())
@@ -41,8 +44,16 @@ const FilterProduct = () => {
       <div className="md:flex justify-between items-center max-md:space-y-2">
         {/* search */}
         <div className="relative max-md:w-full">
-          <Input value={search} onChange={(e) => dispatch(setFilters({ search: e.target.value, brand: "" }))} className="pe-10" placeholder="Tìm kiếm sản phẩm..." />
+          <Input value={search} onChange={(e) => {
+            const value = e.target.value
+            dispatch(setFilters({ search: value, brand: "" }))
+            dispatch(fetchAllProduct({ search: value }))
+          }} className="pe-10" placeholder="Tìm kiếm sản phẩm..." />
           <Button variant="outline"
+            onClick={() => {
+              dispatch(setFilters(search))
+              // dispatch(fetchAllProduct({ search }))
+            }}
             size="icon"
             className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-0"
           ><Search /></Button>
@@ -54,13 +65,17 @@ const FilterProduct = () => {
             <DropdownMenuContent>
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => dispatch(setFilters({ brand: "", search: "" }))}>
+                onClick={() => {
+                  dispatch(setFilters({ ...filters, brand: "", search: "" }))
+                  dispatch(fetchAllProduct({ ...filters, brand: "" }))
+                }
+                }>
                 Tất cả
               </DropdownMenuItem>
               {
                 brands.map(brand => (
                   <DropdownMenuItem key={brand._id}
-                    onClick={() => dispatch(setFilters({ brand: brand.name, search: "" }))}
+                    onClick={() => handleFilterBrand(brand.name)}
                     className="cursor-pointer">
                     {brand.name}
                   </DropdownMenuItem>

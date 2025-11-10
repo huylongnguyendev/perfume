@@ -1,7 +1,8 @@
 import axios from 'axios'
+import BASE_URL from './BASEURL'
 
 const axiosImage = axios.create({
-  baseURL: import.meta.env.VITE_REACT_PRODUCT_API, // 👈 dùng biến môi trường nếu cần
+  baseURL: BASE_URL, // 👈 dùng biến môi trường nếu cần
   withCredentials: true, // 👈 nếu dùng cookie để xác thực
   headers: {
     "Content-Type": "application/json"

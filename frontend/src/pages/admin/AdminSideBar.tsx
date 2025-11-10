@@ -2,7 +2,7 @@ import Logo from '@/components/Logo'
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem } from '@/components/ui/sidebar'
 import type { CrumbType } from '@/lib/types'
 import type { AppDispatch } from '@/redux/store'
-import { ChartArea, Home, SquareChartGantt } from 'lucide-react'
+import { ChartArea, SquareChartGantt } from 'lucide-react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { setCrumbs, setResetBreadCrumb } from '@/redux/breadCrumbSlice'
@@ -27,14 +27,14 @@ const items: Array<ItemType> = [
         value: "product-manager",
         url: "/admin/product-manager",
         icon: SquareChartGantt,
-        children: [
-            {
-                title: "Quản lý",
-                value: "product-add",
-                url: "/admin/product-add",
-                icon: Home,
-            }
-        ]
+        // children: [
+        //     {
+        //         title: "Quản lý",
+        //         value: "product-add",
+        //         url: "/admin/product-add",
+        //         icon: Home,
+        //     }
+        // ]
     },
 ]
 

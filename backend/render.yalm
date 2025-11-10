@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: perfume-services
-    env: node
-    rootDir: backend
-    buildCommand: npm install
-    startCommand: npm start
-    plan: free

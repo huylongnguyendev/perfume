@@ -1,16 +1,15 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-
-const REACT_PRODUCT_API = import.meta.env.VITE_REACT_PRODUCT_API
+import BASE_URL from './BASEURL'
 
 const axiosAuthClient = axios.create({
-    baseURL: REACT_PRODUCT_API,
+    baseURL: BASE_URL,
     headers: { "Content-Type": "application/json" },
     withCredentials: true
 })
 
 const axiosRefreshClient = axios.create({
-    baseURL: REACT_PRODUCT_API,
+    baseURL: BASE_URL,
     headers: { "Content-Type": "application/json" },
     withCredentials: true
 })

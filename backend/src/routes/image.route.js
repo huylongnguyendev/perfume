@@ -11,7 +11,11 @@ const uploadToCloudinary = (fileBuffer) => {
     const stream = cloudinary.uploader.upload_stream(
       { folder: 'products' },
       (error, result) => {
-        if (error || !result) return reject(error)
+        if (error || !result) {
+          console.error("❌ Cloudinary upload error:", error)
+          return reject(error);
+        }
+
         resolve(result.secure_url)
       }
     )
