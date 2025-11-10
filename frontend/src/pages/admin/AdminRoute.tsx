@@ -8,7 +8,7 @@ const AdminRoute = () => {
   const { user, loading, isAuthenticated } = useSelector((state: RootState) => state.auth)
 
   if (loading === "loading") return <Loading />
-  if (!isAuthenticated) return <Navigate to="/shop" replace />
+  // if (!isAuthenticated) return <Navigate to="/shop" replace />
   if (!user?.admin) return <Navigate to="/shop" replace />
 
   return <Outlet />
