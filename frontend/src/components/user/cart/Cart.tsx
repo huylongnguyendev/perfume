@@ -8,6 +8,7 @@ import { setIsOpenCart } from '@/redux/toggleSlice'
 import ProductCart from '@/components/product/ProductCart'
 import Loading from '@/components/Loading'
 import { useEffect, useRef } from 'react'
+import { fetchCart } from '@/redux/cartSlice'
 
 const Cart = () => {
   const isOpenCart = useSelector((state: RootState) => state.toggle.isOpenCart)
@@ -27,6 +28,10 @@ const Cart = () => {
     window.addEventListener("mousedown", handleClickOutSide)
     return () => window.removeEventListener("mousedown", handleClickOutSide)
   }, [isOpenCart])
+
+  useEffect(() => {
+    dispatch(fetchCart())
+  },[dispatch])
 
   return (
     <>
