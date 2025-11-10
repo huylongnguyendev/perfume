@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { signOut } from '@/redux/authSlice'
+import { clearCart } from '@/redux/cartSlice'
 import type { AppDispatch, RootState } from '@/redux/store'
 import { LogOut, Package, Settings, User } from 'lucide-react'
 import { useState } from 'react'
@@ -40,6 +41,7 @@ const UserAction = () => {
   const handleSignOut = async () => {
     try {
       await dispatch(signOut()).unwrap()
+      dispatch(clearCart())
       toast.success("Đăng xuất thành công!")
       navigate("/signin")
     } catch (error: any) {
