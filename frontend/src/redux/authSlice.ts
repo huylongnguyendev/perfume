@@ -71,14 +71,15 @@ export const initializeAuth = createAsyncThunk(
       if (!refreshTokenCookie) return null
 
       await thunkAPI.dispatch(refreshToken()).unwrap()
-      const user = await thunkAPI.dispatch(getProfile()).unwrap()
-      return user // ✅ trả về user object
+      const profileResponse = await thunkAPI.dispatch(getProfile()).unwrap()
+      return profileResponse.user // ✅ chỉ trả về user
     } catch (err) {
       console.error('Lỗi khi khởi tạo phiên:', err)
       return null
     }
   }
 )
+
 
 
 interface AuthState {

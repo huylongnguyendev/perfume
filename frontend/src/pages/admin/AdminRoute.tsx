@@ -9,7 +9,7 @@ const AdminRoute = () => {
 
   if (loading === "loading") return <Loading />
   if (!isAuthenticated) return <Navigate to="/signin" replace />
-  if (!user?.admin && user) return <Navigate to="/shop" replace />
+  if (!user?.admin && !isAuthenticated) return <Navigate to="/shop" replace />
 
   return <Outlet />
 }

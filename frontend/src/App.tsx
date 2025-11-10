@@ -24,15 +24,14 @@ const App = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    dispatch(initializeAuth())
+    dispatch(initializeAuth()).then(() => {
+      const token = Cookies.get("accessToken")
+      if (token) {
+        dispatch(fetchCart())
+      }
+    })
   }, [dispatch])
 
-  useEffect(() => {
-    const token = Cookies.get("accessToken")
-    if (token) {
-      dispatch(fetchCart())
-    }
-  }, [dispatch])
 
   useEffect(() => {
     if (loading === "success" && message)
