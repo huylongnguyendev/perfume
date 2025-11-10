@@ -22,7 +22,6 @@ app.use(cookieParser())
 
 if (process.env.NODE_ENV === "production") {
   app.use(cors({
-    origin: "http://localhost:5173",
     credentials: true
   }))
 }
@@ -33,14 +32,6 @@ app.use(`${API}/brands`, brandRouter)
 app.use(`${API}/products`, productRouter)
 app.use(`${API}/cart`, verifyUser, cartRouter)
 app.use(`${API}/upload`, uploadRouter)
-
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")))
-  app.get(/^\/(?!api\/).*/, (_, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"))
-  })
-}
 
 connectDB().then(() => {
   app.listen(PORT, () => {

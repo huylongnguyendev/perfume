@@ -90,7 +90,7 @@ export const authSignOut = async (req, res) => {
         res.clearCookie("refreshToken", {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax"
+            sameSite: process.env.NODE_ENV === "development" ? "None" : "Lax"
         })
         res.sendStatus(200)
     } catch (error) {
