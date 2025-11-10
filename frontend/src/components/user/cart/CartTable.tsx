@@ -86,7 +86,7 @@ const CartTable = () => {
             </TableHeader>
             <TableBody>
               {
-                items.length > 0 && (
+                items && items.length > 0 ? (
                   items.map((item, index) => (
                     <TableRow key={item.productId._id + index.toString()}>
                       <TableCell>
@@ -126,7 +126,7 @@ const CartTable = () => {
                     </TableRow>
                   ))
                 )
-                || (<TableRow>
+                : (<TableRow>
                   <TableCell className="w-full">
                     <div className="text-center p-4 space-y-5">
                       <p className="font-semibold">Giỏ hàng trống</p>
