@@ -11,7 +11,7 @@ import { toast, Toaster } from 'sonner'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from './redux/store'
 import { useEffect } from 'react'
-import { getProfile, refreshToken } from './redux/authSlice'
+import { initializeAuth } from './redux/authSlice'
 import { fetchCart } from './redux/cartSlice'
 import IntroducePage from './pages/user/IntroducePage'
 import AdminRoute from './pages/admin/AdminRoute'
@@ -24,14 +24,13 @@ const App = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    dispatch(refreshToken())
+    dispatch(initializeAuth())
   }, [dispatch])
 
   useEffect(() => {
     const token = Cookies.get("accessToken")
     if (token) {
       dispatch(fetchCart())
-      dispatch(getProfile())
     }
   }, [dispatch])
 
