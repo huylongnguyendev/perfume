@@ -83,8 +83,8 @@ axiosAuthClient.interceptors.response.use(
             } catch (refreshError) {
                 processQueue(refreshError, null)
                 Cookies.remove('accessToken')
-                if (window.location.pathname !== "/signin") {
-                    window.location.href = "/signin"
+                if (window.location.pathname !== "/shop") {
+                    window.location.href = "/shop"
                 }
                 return Promise.reject(refreshError)
             } finally {
