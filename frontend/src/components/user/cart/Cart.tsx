@@ -33,8 +33,6 @@ const Cart = () => {
     dispatch(fetchCart())
   }, [dispatch])
 
-  if (!items || items.length === 0) return <li className="text-center">Giỏ hàng trống</li>
-
   return (
     <>
       <div ref={ref} className={cn("absolute top-0 -right-[400px] w-96 bg-background h-dvh flex flex-col justify-between gap-4 p-4 shadow-lg transition-all duration-300 z-50", isOpenCart && "right-0")}>
@@ -43,13 +41,13 @@ const Cart = () => {
           <ul className="p-2 border rounded-lg space-y-1">
             {
               loading === "loading" ? <li><Loading /></li> :
-                items.length > 0 && loading === "success" && (
+                items.length > 0 && items ? (
                   items.map((item, index) => (
                     <li key={index} className="p-2 bg-secondary rounded-lg">
                       <ProductCart item={item} />
                     </li>
                   ))
-                )
+                ) : <li>Giỏ hàng trống</li>
             }
           </ul>
         </div>
