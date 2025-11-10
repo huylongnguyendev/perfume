@@ -96,7 +96,7 @@ const CartTable = () => {
                           </Avatar>
                           <div className="font-semibold flex flex-col gap-3">
                             <div>
-                              <h3 className="text-sm">{item.productId.name}</h3>
+                              <h3 className="text-sm">{item?.productId?.name || ""}</h3>
                               <p className="text-xs text-muted-foreground"><span>Dung tích:</span> <span>{item.selectedVolume.volume}ml</span></p>
                             </div>
                             <div className="flex items-center gap-2 mt-auto">
@@ -111,13 +111,13 @@ const CartTable = () => {
                         </div>
                       </TableCell>
                       <TableCell className="text-right font-semibold">
-                        {(item.selectedVolume.price * item.quantity).toLocaleString("vi-VN")}đ
+                        {(item?.selectedVolume.price * item.quantity).toLocaleString("vi-VN")}đ
                       </TableCell>
                       <TableCell className="text-right">
                         <Button
                           variant="ghost"
                           size="icon-sm"
-                          onClick={() => handleRemoveItem(item.productId._id, item.selectedVolume.volume)}
+                          onClick={() => handleRemoveItem(item?.productId._id, item.selectedVolume.volume)}
                           className="cursor-pointer group"
                         >
                           <Trash2 className="group-hover:text-destructive transition-colors duration-300" />
