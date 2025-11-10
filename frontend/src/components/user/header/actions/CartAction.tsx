@@ -16,7 +16,7 @@ const CartAction = () => {
         onClick={() => dispatch(setIsOpenCart())}
         className="cursor-pointer rounded-full relative"
       >
-        <Badge variant="destructive" className="absolute -top-1.5 -right-1 px-1 min-w-5 h-5 tabular-nums rounded-full text-xs">{items.length}</Badge>
+        <Badge variant="destructive" className="absolute -top-1.5 -right-1 px-1 min-w-5 h-5 tabular-nums rounded-full text-xs">{items && items.length}</Badge>
         <ShoppingCart />
       </Button>
     </>
