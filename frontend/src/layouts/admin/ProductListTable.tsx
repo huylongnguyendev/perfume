@@ -4,7 +4,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { Check, Edit, Trash2, X } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch, RootState } from '@/redux/store'
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 import { deleteProduct } from '@/redux/productSlice'
@@ -14,9 +14,9 @@ import { setIdToChange } from '@/redux/changeProductSlice'
 
 const ProductListTable = () => {
   const { items } = useSelector((state: RootState) => state.productList)
-  const filters = useSelector((state: RootState) => state.productFilter)
-  const sort = useSelector((state: RootState) => state.productSort.sort)
-  const page = useSelector((state: RootState) => state.productList.page)
+  // const filters = useSelector((state: RootState) => state.productFilter)
+  // const sort = useSelector((state: RootState) => state.productSort.sort)
+  // const page = useSelector((state: RootState) => state.productList.page)
   const dispatch = useDispatch<AppDispatch>()
   const [volSelected, setVolSelected] = useState<Record<string, any>>({})
 
@@ -42,9 +42,9 @@ const ProductListTable = () => {
     dispatch(setIsOpenAddProduct())
   }
 
-  useEffect(() => {
-    dispatch(fetchAllProduct({ ...filters, brand: "", gender: "", sort: "", page, limit: 12 }))
-  }, [filters, sort, page])
+  // useEffect(() => {
+  //   dispatch(fetchAllProduct({ ...filters, brand: "", gender: "", sort: "", page, limit: 12 }))
+  // }, [filters, sort, page])
 
   return (
     <>
