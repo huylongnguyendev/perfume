@@ -15,7 +15,7 @@ const ProductList = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    dispatch(fetchAllProduct({ ...filters, brand: "", gender: "", sort: "newest", page, limit: 12 }))
+    dispatch(fetchAllProduct({ filters, sort, page, limit: 12 }))
   }, [filters, sort, page])
 
   if (loading === "loading")
