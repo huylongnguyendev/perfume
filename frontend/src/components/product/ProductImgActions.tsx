@@ -31,7 +31,7 @@ const ProductImgActions = ({ id }: Props) => {
                             className="cursor-pointer"
                         >
                             <Link
-                                to={`/products/${id}`}
+                                to={`/shop/products/${id}`}
                                 className="inline-flex size-full justify-center items-center"
                             >
                                 <Eye />
