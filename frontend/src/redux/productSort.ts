@@ -1,22 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 interface ProductSortType {
-    sort: "default" | "newest" | "priceAsc" | "priceDesc"
+  sort: "default" | "newest" | "priceAsc" | "priceDesc"
 }
 
 const initialState = {
-    sort: "default"
+  sort: "newest"
 
 } satisfies ProductSortType as ProductSortType
 
 const productSortSlice = createSlice({
-    name: "productSort",
-    initialState,
-    reducers: {
-        setSort: (state, action) => {
-            state.sort = action.payload
-        }
+  name: "productSort",
+  initialState,
+  reducers: {
+    setSort: (state, action) => {
+      state.sort = action.payload
     }
+  }
 })
 
 const productSortReducer = productSortSlice.reducer
