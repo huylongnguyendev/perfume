@@ -43,7 +43,7 @@ const UserAction = () => {
       await dispatch(signOut()).unwrap()
       dispatch(clearCart())
       toast.success("Đăng xuất thành công!")
-      navigate("/signin")
+      navigate("/shop")
     } catch (error: any) {
       toast.error(error)
     }
