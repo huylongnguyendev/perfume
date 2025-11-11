@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import UserLayout from './layouts/user/UserLayout'
 import HomePage from './pages/user/HomePage'
 import ProductPage from './pages/user/ProductPage'
@@ -22,12 +22,13 @@ import Cookies from 'js-cookie'
 const App = () => {
   const { message, loading } = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch<AppDispatch>()
+  const navigate = useNavigate()
   useEffect(() => {
     const token = Cookies.get("accessToken")
     if (token) {
       dispatch(fetchCart())
       dispatch(getProfile())
-    }
+    } else navigate("/shop")
   }, [dispatch])
 
 
