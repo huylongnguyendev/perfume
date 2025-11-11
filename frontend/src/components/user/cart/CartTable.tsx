@@ -131,7 +131,7 @@ const CartTable = () => {
                     <div className="text-center p-4 space-y-5">
                       <p className="font-semibold">Giỏ hàng trống</p>
                       <Button>
-                        <Link to="/products" className="inline-flex justify-center items-center gap-2 size-full">
+                        <Link to="/shop/products" className="inline-flex justify-center items-center gap-2 size-full">
                           <ShoppingCart />
                           <span>Tiếp tục mua hàng</span>
                         </Link>
