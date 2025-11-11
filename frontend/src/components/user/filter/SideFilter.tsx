@@ -15,7 +15,7 @@ const SideFilter = () => {
 
   return (
     <>
-      <aside className={cn("w-1/3 bg-secondary/40 rounded-lg p-4 space-y-5 h-fit absolute max-md:-left-96 transition-all duration-300 z-50 max-md:h-dvh top-0 max-md:flex max-md:flex-col justify-between md:sticky md:top-24 md:z-10 max-md:shadow-md", isOpenFilter && "max-md:left-0")}>
+      <aside className={cn("w-1/3 max-md:w-96 bg-accent rounded-lg p-4 space-y-5 h-fit absolute max-md:-left-96 transition-all duration-300 z-50 max-md:h-dvh top-0 max-md:flex max-md:flex-col justify-between md:sticky md:top-24 md:z-10 max-md:shadow-md", isOpenFilter && "max-md:left-0")}>
         <SearchFilter filters={filters} />
         <BrandFilter filters={filters} />
         <GenderFilter filters={filters} />
