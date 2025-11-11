@@ -52,7 +52,7 @@ export const refreshToken = createAsyncThunk<UserResponse, void, { rejectValue: 
     Cookies.set('accessToken', accessToken, {
       expires: 1,
       secure: true,
-      sameSite: 'Strict'
+      sameSite: 'None'
     })
 
     return res.data
@@ -62,25 +62,6 @@ export const refreshToken = createAsyncThunk<UserResponse, void, { rejectValue: 
     return rejectWithValue(message)
   }
 })
-
-export const initializeAuth = createAsyncThunk(
-  'auth/initializeAuth',
-  async (_, thunkAPI): Promise<User | null> => {
-    try {
-      const refreshTokenCookie = Cookies.get("refreshToken")
-      if (!refreshTokenCookie) return null
-
-      await thunkAPI.dispatch(refreshToken()).unwrap()
-      const profileResponse = await thunkAPI.dispatch(getProfile()).unwrap()
-      return profileResponse.user // ✅ chỉ trả về user
-    } catch (err) {
-      console.error('Lỗi khi khởi tạo phiên:', err)
-      return null
-    }
-  }
-)
-
-
 
 interface AuthState {
   user: User | null
@@ -183,26 +164,6 @@ const authSlice = createSlice({
         state.user = action.payload.user
       })
       .addCase(getProfile.rejected, (state) => {
-        state.loading = "failed"
-        state.user = null
-        state.isAuthenticated = false
-        state.message = "Không thể lấy thông tin người dùng"
-      })
-      .addCase(initializeAuth.pending, (state) => {
-        state.loading = "loading"
-        state.message = "Đang xử lý..."
-      })
-      .addCase(initializeAuth.fulfilled, (state, action) => {
-        state.loading = "success"
-        if (action.payload) {
-          state.user = action.payload
-          state.isAuthenticated = true
-        } else {
-          state.user = null
-          state.isAuthenticated = false
-        }
-      })
-      .addCase(initializeAuth.rejected, (state) => {
         state.loading = "failed"
         state.user = null
         state.isAuthenticated = false
