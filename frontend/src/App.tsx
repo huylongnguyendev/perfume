@@ -22,13 +22,12 @@ import Cookies from 'js-cookie'
 const App = () => {
   const { message, loading } = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch<AppDispatch>()
-  const navigate = useNavigate()
   useEffect(() => {
     const token = Cookies.get("accessToken")
     if (token) {
       dispatch(fetchCart())
       dispatch(getProfile())
-    } else navigate("/shop")
+    }
   }, [dispatch])
 
 
@@ -56,7 +55,7 @@ const App = () => {
 
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminPage />}></Route>
+              <Route path="/admin" element={<AdminPage />}></Route>
               <Route path="product-manager" element={<ProductManager />}  ></Route>
               <Route path="product-add" element={<HomePage />}  ></Route>
             </Route>
