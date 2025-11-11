@@ -22,16 +22,10 @@ const SideFilter = () => {
         <PriceFilter filters={filters} />
         <div className="flex justify-between items-center mt-auto md:hidden">
           <Button
-            variant="secondary"
             onClick={() => dispatch(setIsOpenFilter())}
             className="cursor-pointer w-1/2"
           >
-            Hủy bỏ
-          </Button>
-          <Button
-            className="cursor-pointer w-1/2"
-          >
-            Xác nhận
+            Đóng
           </Button>
         </div>
       </aside>
