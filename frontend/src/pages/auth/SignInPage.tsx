@@ -20,7 +20,7 @@ type SignInFormType = z.infer<typeof SignInSchema>
 
 const SignInPage = () => {
     const dispatch = useDispatch<AppDispatch>()
-    const { isSignIn } = useSelector((state: RootState) => state.auth)
+    const { isSignIn, user } = useSelector((state: RootState) => state.auth)
     const navigate = useNavigate()
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SignInFormType>({ resolver: zodResolver(SignInSchema) })
 
@@ -29,8 +29,8 @@ const SignInPage = () => {
     }
 
     useEffect(() => {
-        if (isSignIn)
-            navigate("/")
+        if (isSignIn && user)
+            navigate("/shop")
     }, [isSignIn])
 
     return (

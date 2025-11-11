@@ -55,7 +55,7 @@ const App = () => {
 
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<AdminLayout />}>
-              <Route path="/admin" element={<AdminPage />}></Route>
+              <Route index element={<AdminPage />}></Route>
               <Route path="product-manager" element={<ProductManager />}  ></Route>
               <Route path="product-add" element={<HomePage />}  ></Route>
             </Route>
