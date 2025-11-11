@@ -27,14 +27,14 @@ const App = () => {
     const token = Cookies.get("accessToken")
     if (token) {
       dispatch(refreshToken())
-    }
-  }, [dispatch])
-
-  useEffect(() => {
-    const token = Cookies.get("accessToken")
-    if (token) {
-      dispatch(fetchCart())
-      dispatch(getProfile())
+        .unwrap()
+        .then(() => {
+          dispatch(fetchCart())
+          dispatch(getProfile())
+        })
+        .catch(() => {
+          // Không cần redirect ở đây, chỉ xử lý lỗi nếu muốn
+        })
     }
   }, [dispatch])
 
