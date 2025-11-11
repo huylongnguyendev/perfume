@@ -24,7 +24,10 @@ const App = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    dispatch(refreshToken())
+    const token = Cookies.get("accessToken")
+    if (token) {
+      dispatch(refreshToken())
+    }
   }, [dispatch])
 
   useEffect(() => {
