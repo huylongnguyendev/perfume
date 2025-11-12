@@ -24,18 +24,15 @@ const App = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    const token = Cookies.get("accessToken")
-    if (token) {
       dispatch(refreshToken())
-        .unwrap()
-        .then(() => {
-          dispatch(fetchCart())
-          dispatch(getProfile())
-        })
-        .catch(() => {
-          // Không cần redirect ở đây, chỉ xử lý lỗi nếu muốn
-        })
-    }
+    .unwrap()
+    .then(() => {
+      dispatch(fetchCart())
+      dispatch(getProfile())
+    })
+    .catch(() => {
+      Cookies.remove("accessToken")
+    })
   }, [dispatch])
 
 
