@@ -38,7 +38,7 @@ const SearchFilter = ({ filters }: Props) => {
       <div>
         <div className=" relative">
           <Input
-            value={search}
+            value={localSearch}
             onChange={(e) => setLocalSearch(e.target.value)}
             placeholder="Tìm kiếm..."
             className="bg-background py-5 pe-10"
