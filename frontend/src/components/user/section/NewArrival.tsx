@@ -15,8 +15,8 @@ const NewArrival = () => {
     const filters = useSelector((state: RootState) => state.productFilter)
     const dispatch = useDispatch<AppDispatch>()
     useEffect(() => {
-        dispatch(setFilters({sort: "newest"}))
-        dispatch(fetchAllProduct({filters, limit: 10}))
+        dispatch(setFilters({...filters, sort: "newest"}))
+        dispatch(fetchAllProduct({...filters, limit: 10}))
     },[])
     return (
         <>
