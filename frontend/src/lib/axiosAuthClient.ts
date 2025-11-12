@@ -75,7 +75,12 @@ axiosAuthClient.interceptors.response.use(
                 const newAccessToken = refreshRes.data.accessToken
 
                 if (newAccessToken) {
-                    Cookies.set('accessToken', newAccessToken, { expires: 1 })
+                  Cookies.set('accessToken', newAccessToken, {
+                    expires: 1,
+                    path: '/',
+                    secure: true,
+                    sameSite: 'None'
+                  })                  
                     processQueue(null, newAccessToken)
                     originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
                     return axiosAuthClient(originalRequest)
