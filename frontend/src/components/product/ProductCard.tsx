@@ -41,7 +41,7 @@ const ProductCard = ({ product }: Props) => {
             priceOrig: addData?.priceOrig
           }
         }))
-        toast.success(message)
+        toast.success("Đã thêm sản phẩm vào giỏ hàng")
       } catch (error: any) {
         toast.error(error?.message || "Thêm vào giỏ hàng thất bại")
       }
