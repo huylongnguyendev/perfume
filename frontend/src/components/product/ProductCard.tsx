@@ -18,7 +18,7 @@ interface Props {
 const ProductCard = ({ product }: Props) => {
   const user = useSelector((state: RootState) => state.auth.user)
   const [volSelect, setVolSelect] = useState<string>(product.volumes[0].sku)
-  const message = useSelector((state: RootState) => state.cart.message)
+  // const message = useSelector((state: RootState) => state.cart.message)
   const dispatch = useDispatch<AppDispatch>()
   const { id } = useParams()
   const navigate = useNavigate()

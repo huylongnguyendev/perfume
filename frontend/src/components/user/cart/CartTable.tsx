@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import prd from '@/assets/prd_3.png'
+// import prd from '@/assets/prd_3.png'
 import { Button } from '@/components/ui/button'
 import { Minus, Plus, ShoppingCart, Trash2 } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
