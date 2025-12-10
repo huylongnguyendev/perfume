@@ -20,7 +20,7 @@ import ProductManager from './pages/admin/ProductManager'
 import Cookies from 'js-cookie'
 
 const App = () => {
-  const { message, loading } = useSelector((state: RootState) => state.auth)
+  const { message, loading, user } = useSelector((state: RootState) => state.auth)
   const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const App = () => {
     .catch(() => {
       Cookies.remove("accessToken")
     })
-  }, [dispatch])
+  }, [dispatch, user])
 
 
   useEffect(() => {
