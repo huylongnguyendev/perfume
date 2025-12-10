@@ -81,7 +81,7 @@ export interface ProductCartType {
   gender: "Nam" | "Nữ" | "Unisex"
   category: string
   scents: ScentsType
-  images?: string[]
+  images: string[]
 }
 
 export interface ProductListResponse {

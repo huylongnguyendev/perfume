@@ -92,7 +92,7 @@ const CartTable = () => {
                       <TableCell>
                         <div className="flex gap-3 items-center">
                           <Avatar className='rounded-sm size-12'>
-                            <AvatarImage src={prd} alt={item.productId.name} />
+                            <AvatarImage src={item.productId.images[0] } alt={item.productId.name} />
                           </Avatar>
                           <div className="font-semibold flex flex-col gap-3">
                             <div>
